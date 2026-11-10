@@ -1,0 +1,32 @@
+name: Update data from proplumio.com
+
+on:
+  schedule:
+    # Daily at 09:15 UTC, after the site's morning rebuild.
+    - cron: "15 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the CSV files
+        run: |
+          set -e
+          curl -fsSL -o data/prop-firm-statistics.csv https://proplumio.com/prop-firm-statistics/data.csv
+          curl -fsSL -o data/prop-firm-changes.csv https://proplumio.com/prop-firm-news/changes.csv
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "PropLumio data bot"
+          git config user.email "hello@proplumio.com"
+          git add data
+          git commit -m "Update data $(date -u +%Y-%m-%d)"
+          git push

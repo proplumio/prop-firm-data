@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this data, please cite it as below and link to https://proplumio.com."
+title: "Prop firm data: statistics and changes log"
+type: dataset
+authors:
+  - name: "PropLumio"
+    website: "https://proplumio.com"
+    email: "hello@proplumio.com"
+repository-code: "https://github.com/proplumio/prop-firm-data"
+url: "https://proplumio.com/prop-firm-statistics"
+license: CC-BY-4.0
+keywords:
+  - prop firms
+  - prop trading
+  - futures
+  - forex
+  - trading challenges
